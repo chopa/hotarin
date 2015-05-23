@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+
+t = 0;
+x = 50;
+bpos = 600;
+pos2 = 220;
+pos3 = 350;
+score = 0;
+total = 0;
+ok1 = 0;
+ok2 = 0;
+ok3 = 0;
+
+function walk(){
+  var c = document.getElementById("hotaru1");
+  x = x + 20;
+  c.style.top = (x);
+  var c2 = document.getElementById("hotaru2");
+  c2.style.top = (x - pos2);
+  var c3 = document.getElementById("hotaru3");
+  c3.style.top = (x - pos3);
+ 
+  if ( x == bpos + 150) {
+    if (ok1 == 0) {
+      c.src = "dontmind.png";
+    }
+  }
+  
+  if ( x == bpos + 250) {
+    if (ok2 == 0) {
+      c2.src = "dontmind.png";
+    }
+  }
+
+  if ( x == bpos + 410) {
+    if (ok3 == 0) {
+      c3.src = "dontmind.png";
+    }
+  }
+
+  if (x > 1200) {
+    x = x - 1200;
+    total = total+3;
+    var c = document.getElementById("hotaru1");
+    c.src = "hotaran.png";
+    ok1 = 0;
+    var c = document.getElementById("hotaru2");
+    c.src = "hotaran.png";
+    ok2 = 0;
+    var c = document.getElementById("hotaru3");
+    c.src = "hotaran.png";
+    ok3 = 0;
+  }
+
+  t = t + 1;
+  if (t > 2300) {
+    clearInterval(timer);
+    var d = document.getElementById("score");
+    d.innerHTML = "<font size=+7>てんすう:"+score + "/" + total + "</font>";
+    if (total * 0.8 < score && score < total - 1)
+      d.innerHTML = d.innerHTML + "<img src='ganba.png'>";
+    else if (score <= total * 0.8)
+      d.innerHTML = d.innerHTML + "<img src='rabbit.png'>";
+    else 
+      d.innerHTML = d.innerHTML + "<img src='congratulation.png'>";
+
+  }
+}
+
+function click1(){
+  var c = document.getElementById("hotaru1");
+  if(bpos < x && x < bpos + 100) {
+    score = score+1;
+    c.src = "hotaru2.png";
+    ok1 = 1;
+  }
+}
+
+
+function click2(){
+  var c = document.getElementById("hotaru2");
+  if(bpos + pos2 < x && x < bpos + pos2 + 100){
+    score = score+1;
+    c.src = "hotaru2.png";
+    ok2 = 1;
+  }
+}
+
+function click3(){
+  var c = document.getElementById("hotaru3");
+  if(bpos + pos3 < x && x < bpos + pos3 + 100 ){
+    score = score+1;
+    c.src = "hotaru2.png";
+    ok3 = 1;
+  }
+}
+
+
+
+</script>
+</head>
+<body bgcolor="C1FBC8" >
+
+<img src="hotaran.png" width=100px id="hotaru1"
+ style="position:absolute;left:50px;top:300px;">
+<img src="hotaran.png" width=100px id="hotaru2"
+ style="position:absolute;left:250px;top:300px;">
+<img src="hotaran.png" width=100px id="hotaru3"
+ style="position:absolute;left:450px;top:300px;">
+<img src="basket.png" width=100px id="basket1"
+ style="position:absolute;left:40px;top:600px;"
+ onclick = "click1();">
+ <img src="basket.png" width=100px id="basket2"
+ style="position:absolute;left:240px;top:600px;"
+ onclick = "click2();">
+ <img src="basket.png" width=100px id="basket3"
+ style="position:absolute;left:440px;top:600px;"
+ onclick = "click3();">
+
+
+<audio id="audio"><source src="hotarin.mp3"></audio>
+<div style = "position: relative; top: 750px; left: 0px;">楽曲 http://dova-s.jp/bgm/play1078.html</div>
+ <br>
+<div id = "score" style = "position: relative; top: 150px; left: 100px;"></div>
+
+<a href="javascript: void(0)" id="start" onclick="audio.play(); timer = setInterval('walk()',60);document.getElementById('start').innerHTML='';">
+  <img src="start.png" style="position: relative; left:0px;">
+</a>
+
+</body>
+</html>
